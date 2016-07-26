@@ -1,0 +1,54 @@
+{
+  "groups": {
+    "default": {
+      "name": "default",
+      "default": "true",
+      "permissions": [
+        "command.help",
+        "command.google",
+        "command.mcstatus",
+        "command.stats",
+        "command.uptime",
+        "command.test"
+      ],
+      "inheritance": []
+    },
+    "moderator": {
+      "name": "moderator",
+      "default": "false",
+      "permissions": [
+        "command.kick",
+        "command.ban",
+        "command.quiet",
+        "command.part",
+        "command.setcmd",
+        "command.join",
+        "command.unban",
+        "command.voice",
+        "command.say",
+        "command.cycle"
+      ],
+      "inheritance": [
+        "default"
+      ]
+    },
+    "admin": {
+      "name": "admin",
+      "default": "false",
+      "permissions": [
+        "command.kill",
+        "command.exec",
+        "command.reload",
+        "test.permissions"
+      ],
+      "inheritance": [
+        "moderator"
+      ]
+    }
+  },
+  "users": {
+    "cindylo:b5b38990-551b-4863-ba27-fb67316fd57c": "admin",
+    "zack6849:b86b077f-e2fd-4c1c-a93d-3f24015c6c3b": "admin",
+    "Riaku:6b9ab0d6-a176-4f02-b895-d5297d255876": "admin"
+  }
+}

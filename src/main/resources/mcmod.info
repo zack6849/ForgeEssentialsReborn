@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ForgeEssentialsReborn",
+  "name": "ForgeEssentials Reborn",
+  "description": "Rework of ForgeEssentials for Minecraft ${mcversion}",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["zack6849"],
+  "credits": "The Forge and FML guys, for making this example",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
