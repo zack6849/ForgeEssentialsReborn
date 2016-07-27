@@ -1,10 +1,5 @@
 package com.zack6849.forgeessentialseborn.api;
 
-import com.zack6849.forgeessentialseborn.Main;
-import com.zack6849.forgeessentialseborn.api.permissions.Group;
-import com.zack6849.forgeessentialseborn.api.permissions.User;
-import net.minecraft.command.ICommandSender;
-
 /**
  * Created by Rory on 7/26/2016.
  */
