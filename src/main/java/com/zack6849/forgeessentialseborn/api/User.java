@@ -1,14 +1,14 @@
-package com.zack6849.forgeessentialseborn.api.permissions;
+package com.zack6849.forgeessentialseborn.api;
 
 import com.zack6849.forgeessentialseborn.api.Location;
+import com.zack6849.forgeessentialseborn.api.permissions.Group;
+import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
 
-/**
- * Created by zack6849 on 7/23/2016.
- */
-public class User {
+
+public class User extends IUser{
     private ICommandSender sender;
     private String name;
     private String uniqueId;
@@ -94,7 +94,9 @@ public class User {
     public boolean hasPermission(Permission permission) {
         return getGroup().hasPermission(permission);
     }
-    public void getLocation(ICommandSender sender) {
+    public Location getLocation(ICommandSender sender) {
+        Location loc = new Location(1,2,3,4,5);
+        return loc;
     }
 }
 

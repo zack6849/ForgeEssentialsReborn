@@ -20,5 +20,6 @@ public class Test extends Command {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         server.getPlayerList().sendChatMsg(new TextComponentString("Hello world!"+loc));
+
     }
 }

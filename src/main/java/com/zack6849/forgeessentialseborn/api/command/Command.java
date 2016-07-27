@@ -2,7 +2,7 @@ package com.zack6849.forgeessentialseborn.api.command;
 
 import com.zack6849.forgeessentialseborn.Main;
 import com.zack6849.forgeessentialseborn.api.permissions.Permission;
-import com.zack6849.forgeessentialseborn.api.permissions.User;
+import com.zack6849.forgeessentialseborn.api.User;
 import com.zack6849.forgeessentialseborn.utils.PlayerUtils;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;

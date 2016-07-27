@@ -3,7 +3,7 @@ package com.zack6849.forgeessentialseborn;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.PermissionManager;
-import com.zack6849.forgeessentialseborn.api.permissions.User;
+import com.zack6849.forgeessentialseborn.api.User;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;

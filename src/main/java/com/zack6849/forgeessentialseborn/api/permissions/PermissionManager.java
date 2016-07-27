@@ -3,6 +3,7 @@ package com.zack6849.forgeessentialseborn.api.permissions;
 import com.google.common.io.Files;
 import com.google.gson.*;
 import com.zack6849.forgeessentialseborn.Main;
+import com.zack6849.forgeessentialseborn.api.User;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Level;
 

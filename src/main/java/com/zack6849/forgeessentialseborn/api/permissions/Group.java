@@ -3,6 +3,7 @@ package com.zack6849.forgeessentialseborn.api.permissions;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.zack6849.forgeessentialseborn.Main;
+import com.zack6849.forgeessentialseborn.api.User;
 import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;

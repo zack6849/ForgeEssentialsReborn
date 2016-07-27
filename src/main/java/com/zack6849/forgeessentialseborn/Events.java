@@ -1,6 +1,6 @@
 package com.zack6849.forgeessentialseborn;
 
-import com.zack6849.forgeessentialseborn.api.permissions.User;
+import com.zack6849.forgeessentialseborn.api.User;
 import com.zack6849.forgeessentialseborn.utils.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
