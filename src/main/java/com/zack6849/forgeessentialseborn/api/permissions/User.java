@@ -1,5 +1,6 @@
 package com.zack6849.forgeessentialseborn.api.permissions;
 
+import com.zack6849.forgeessentialseborn.api.Location;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
@@ -93,4 +94,7 @@ public class User {
     public boolean hasPermission(Permission permission) {
         return getGroup().hasPermission(permission);
     }
+    public void getLocation(ICommandSender sender) {
+    }
 }
+
