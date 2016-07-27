@@ -1,13 +1,15 @@
 package com.zack6849.forgeessentialseborn.api.command;
 
 import com.zack6849.forgeessentialseborn.Main;
-import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import com.zack6849.forgeessentialseborn.api.permissions.User;
+import com.zack6849.forgeessentialseborn.utils.PlayerUtils;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ServerCommandManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.Level;
 
@@ -59,10 +61,18 @@ public abstract class Command implements ICommand {
 
     @Override
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        Group group = Main.getInstance().getPermissionManager().getUserGroup(new User(sender));
-        Permission perm = new Permission("command." + getCommandName(), false);
-        Main.log(Level.DEBUG, "found group " + group.getName() + " for " + sender.getName());
-        return group.hasPermission(perm);
+        if (sender instanceof DedicatedServer) {
+            //console, always has perm.
+            return true;
+        }
+        if (sender instanceof EntityPlayer) {
+            User u = PlayerUtils.fromUUID(((EntityPlayer) sender).getCachedUniqueIdString());
+            Permission perm = new Permission("command." + getCommandName(), false);
+            Main.log(Level.DEBUG, "found group " + u.getGroup().getName() + " for " + sender.getName());
+            return u.hasPermission(perm);
+        }
+        Main.log(Level.INFO, sender.getClass().getSimpleName());
+        return false;
     }
 
     @Override

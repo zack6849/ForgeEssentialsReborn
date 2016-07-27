@@ -31,6 +31,10 @@ public class PermissionManager {
         return null;
     }
 
+    public static List<User> getUsercache() {
+        return usercache;
+    }
+
     public JsonObject loadJson() {
         String json = null;
         try {
@@ -42,6 +46,7 @@ public class PermissionManager {
         }
         return null;
     }
+
 
     public void load() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -55,7 +60,6 @@ public class PermissionManager {
                     lines.add(line);
                 }
                 FileUtils.writeLines(file, lines);
-
             }
             data = loadJson();
             groups.clear();
@@ -98,7 +102,7 @@ public class PermissionManager {
                     User u = new User(name, id);
                     u.setGroup(g);
                     g.addUser(u);
-                    usercache.add(u);
+                    getUsercache().add(u);
                 }
             }
         } catch (Exception ex) {

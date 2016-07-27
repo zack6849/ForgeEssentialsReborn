@@ -2,6 +2,7 @@ package com.zack6849.forgeessentialseborn.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.zack6849.forgeessentialseborn.Main;
+import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.User;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -11,10 +12,18 @@ import net.minecraft.entity.player.EntityPlayerMP;
 public class PlayerUtils {
 
     public static User fromUUID(String id) {
+        for (User u : Main.getInstance().getPermissionManager().getUsercache()) {
+            if (u.getUniqueId().equals(id)) {
+                return u;
+            }
+        }
         for (GameProfile profile : Main.getInstance().getServer().getPlayerList().getAllProfiles()) {
             if (profile.getId().toString().equals(id)) {
                 User u = new User(profile.getName(), profile.getId().toString());
-                u.setGroup(Main.getInstance().getPermissionManager().getUserGroup(u));
+                Group g = Main.getInstance().getPermissionManager().getUserGroup(u);
+                u.setGroup(g);
+                g.addUser(u);
+                Main.getInstance().getPermissionManager().getUsercache().add(u);
                 return u;
             }
         }
