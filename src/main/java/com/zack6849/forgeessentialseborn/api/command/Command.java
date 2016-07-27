@@ -52,7 +52,7 @@ public abstract class Command implements ICommand {
     }
 
     @Override
-    public List getCommandAliases() {
+    public List<String> getCommandAliases() {
         return aliases;
     }
 
@@ -67,6 +67,10 @@ public abstract class Command implements ICommand {
         }
         if (sender instanceof EntityPlayer) {
             User u = PlayerUtils.fromUUID(((EntityPlayer) sender).getCachedUniqueIdString());
+            if (u == null) {
+                Main.log(Level.WARN, "Failed to convert EntityPlayer to User!");
+                return false;
+            }
             Permission perm = new Permission("command." + getCommandName(), false);
             Main.log(Level.DEBUG, "found group " + u.getGroup().getName() + " for " + sender.getName());
             return u.hasPermission(perm);

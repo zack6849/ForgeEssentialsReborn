@@ -143,9 +143,6 @@ public class PermissionManager {
      * @return the Group the user belongs to
      */
     public Group getUserGroup(User user) {
-        if (user == null) {
-            Main.log(Level.FATAL, "What the actual fuck?");
-        }
         //first check if any of the groups contain the user
         for (Group g : getGroups()) {
             for (User u : g.getUsers()) {

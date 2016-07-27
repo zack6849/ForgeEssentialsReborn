@@ -21,7 +21,9 @@ public class User {
         }
         if (isPlayer()) {
             EntityPlayer p = (EntityPlayer) sender.getCommandSenderEntity();
-            setUniqueId(p.getCachedUniqueIdString());
+            if (p != null) {
+                setUniqueId(p.getCachedUniqueIdString());
+            }
         }
     }
 
@@ -90,8 +92,5 @@ public class User {
 
     public boolean hasPermission(Permission permission) {
         return getGroup().hasPermission(permission);
-    }
-
-    public void teleport() {
     }
 }

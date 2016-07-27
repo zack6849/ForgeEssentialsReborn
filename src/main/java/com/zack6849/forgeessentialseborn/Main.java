@@ -55,7 +55,6 @@ public class Main {
         ServerCommandManager manager = (ServerCommandManager) event.getServer().getCommandManager();
         Reflections reflections = new Reflections("com.zack6849.forgeessentialseborn.commands");
         Set<Class<? extends Command>> subtypes = reflections.getSubTypesOf(Command.class);
-
         Main.log(Level.INFO, "Complete. found " + subtypes.size() + " commands.");
         for (Class c : subtypes) {
             try {

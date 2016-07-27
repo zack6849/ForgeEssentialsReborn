@@ -71,9 +71,10 @@ public class Group {
             if (perm.getPermission().equalsIgnoreCase(permission.getPermission())) {
                 return true;
             }
-            if (perm.getPermission().equalsIgnoreCase("commands.*")) {
+            //disabling this for now. not sure how i want to handle wildcards.
+            /*if (perm.getPermission().equalsIgnoreCase("commands.*")) {
                 return true;
-            }
+            }*/
         }
         return false;
     }
