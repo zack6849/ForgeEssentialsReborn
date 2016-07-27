@@ -6,6 +6,7 @@ import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import com.zack6849.forgeessentialseborn.api.permissions.User;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.Level;
@@ -34,6 +35,8 @@ public abstract class Command implements ICommand {
         this.name = name;
         this.usage = description;
         this.aliases = aliases;
+        ServerCommandManager commandManager = (ServerCommandManager) Main.getInstance().getServer().getCommandManager();
+        commandManager.registerCommand(this);
     }
 
     @Override
@@ -58,7 +61,7 @@ public abstract class Command implements ICommand {
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
         Group group = Main.getInstance().getPermissionManager().getUserGroup(new User(sender));
         Permission perm = new Permission("command." + getCommandName(), false);
-        Main.getInstance().log(Level.DEBUG, "found group " + group.getName() + " for " + sender.getName());
+        Main.log(Level.DEBUG, "found group " + group.getName() + " for " + sender.getName());
         return group.hasPermission(perm);
     }
 

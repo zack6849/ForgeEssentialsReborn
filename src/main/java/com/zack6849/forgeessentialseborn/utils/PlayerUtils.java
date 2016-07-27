@@ -13,7 +13,9 @@ public class PlayerUtils {
     public static User fromUUID(String id) {
         for (GameProfile profile : Main.getInstance().getServer().getPlayerList().getAllProfiles()) {
             if (profile.getId().toString().equals(id)) {
-                return new User(profile.getName(), profile.getId().toString());
+                User u = new User(profile.getName(), profile.getId().toString());
+                u.setGroup(Main.getInstance().getPermissionManager().getUserGroup(u));
+                return u;
             }
         }
         return null;

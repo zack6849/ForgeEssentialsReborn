@@ -9,7 +9,7 @@
         "command.mcstatus",
         "command.stats",
         "command.uptime",
-        "command.test"
+        "command.testcmd"
       ],
       "inheritance": []
     },

@@ -1,6 +1,5 @@
 package com.zack6849.forgeessentialseborn;
 
-import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.User;
 import com.zack6849.forgeessentialseborn.utils.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,9 +15,9 @@ public class Events {
     @SubscribeEvent()
     public void join(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
+        Main.log(Level.INFO, event.player.getUniqueID().toString());
         User u = PlayerUtils.fromUUID(player.getUniqueID().toString());
-        Group g = Main.getInstance().getPermissionManager().getUserGroup(u);
-        Main.log(Level.INFO, "User " + player.getName() + " is of the rank " + g.getName());
-        event.player.getServer().getPlayerList().sendChatMsg(new TextComponentString("User " + player.getName() + " is of the rank " + g.getName()));
+        Main.log(Level.INFO, "User " + player.getName() + " is of the rank " + u.getGroup().getName());
+        event.player.getServer().getPlayerList().sendChatMsg(new TextComponentString("User " + player.getName() + " is of the rank " + u.getGroup().getName()));
     }
 }

@@ -1,9 +1,9 @@
 package com.zack6849.forgeessentialseborn;
 
+import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.PermissionManager;
 import com.zack6849.forgeessentialseborn.api.permissions.User;
-import com.zack6849.forgeessentialseborn.commands.Test;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,6 +13,9 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.apache.logging.log4j.Level;
+import org.reflections.Reflections;
+
+import java.util.Set;
 
 @Mod(modid = Main.MODID, version = Main.VERSION, acceptableRemoteVersions = "*")
 public class Main {
@@ -44,12 +47,24 @@ public class Main {
         logger = FMLLog.getLogger();
         server = event.getServer();
         Main.getInstance().getServer().getPlayerProfileCache().load();
-        ServerCommandManager manager = (ServerCommandManager) event.getServer().getCommandManager();
-        manager.registerCommand(new Test());
         permissionManager = new PermissionManager();
         setPermissionManager(permissionManager);
         permissionManager.load();
         MinecraftForge.EVENT_BUS.register(new Events());
+        Main.log(Level.INFO, "Searching for command classes.");
+        ServerCommandManager manager = (ServerCommandManager) event.getServer().getCommandManager();
+        Reflections reflections = new Reflections("com.zack6849.forgeessentialseborn.commands");
+        Set<Class<? extends Command>> subtypes = reflections.getSubTypesOf(Command.class);
+
+        Main.log(Level.INFO, "Complete. found " + subtypes.size() + " commands.");
+        for (Class c : subtypes) {
+            try {
+                Main.log(Level.INFO, "Registering command: " + c.getSimpleName());
+                manager.registerCommand((Command) c.newInstance());
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @EventHandler

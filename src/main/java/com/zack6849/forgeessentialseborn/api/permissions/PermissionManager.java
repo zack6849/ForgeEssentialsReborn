@@ -18,6 +18,7 @@ import java.util.*;
  */
 public class PermissionManager {
     private static final List<Group> groups = new LinkedList<>();
+    private static final List<User> usercache = new ArrayList<>();
     private static File file = new File(Main.getInstance().getServer().getDataDirectory().getAbsoluteFile() + File.separator + "config" + File.separator + "ForgeEssentialsReborn", "permissions.json");
     private static JsonObject data;
 
@@ -43,7 +44,6 @@ public class PermissionManager {
     }
 
     public void load() {
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             if (!file.exists()) {
@@ -95,7 +95,10 @@ public class PermissionManager {
                 String id = mask[1];
                 Group g = getGroupByName(user.getValue().getAsString());
                 if (g != null) {
-                    g.addUser(new User(name, id));
+                    User u = new User(name, id);
+                    u.setGroup(g);
+                    g.addUser(u);
+                    usercache.add(u);
                 }
             }
         } catch (Exception ex) {
@@ -136,6 +139,9 @@ public class PermissionManager {
      * @return the Group the user belongs to
      */
     public Group getUserGroup(User user) {
+        if (user == null) {
+            Main.log(Level.FATAL, "What the actual fuck?");
+        }
         //first check if any of the groups contain the user
         for (Group g : getGroups()) {
             for (User u : g.getUsers()) {
