@@ -13,12 +13,23 @@ public class User extends IUser{
     private String name;
     private String uniqueId;
     private Group group;
+    private Location location;
     private boolean player = false;
 
     public User(ICommandSender sender) {
         this.setSender(sender);
         if (sender instanceof EntityPlayer) {
+
+            int x = sender.getPosition().getX();
+            int y = sender.getPosition().getY();
+            int z = sender.getPosition().getZ();
+            int pitch;
+            int yaw;
+            pitch = 0;
+            yaw = 0;
+
             setPlayer(true);
+            setLocation(z,y,z,pitch,yaw);
         }
         if (isPlayer()) {
             EntityPlayer p = (EntityPlayer) sender.getCommandSenderEntity();
@@ -28,10 +39,22 @@ public class User extends IUser{
         }
     }
 
+    private void setLocation(int z, int y, int z1, int pitch, int yaw) {
+        this.location = new Location(z,y,z,pitch,yaw);
+    }
+
     public User(String name, String id) {
         setPlayer(true);
         setName(name);
         setUniqueId(id);
+        int x = sender.getPosition().getX();
+        int y = sender.getPosition().getY();
+        int z = sender.getPosition().getZ();
+        int pitch;
+        int yaw;
+        pitch = 0;
+        yaw = 0;
+        setLocation(x,y,z,pitch,yaw);
     }
 
     public void sendMessage(String message) {
@@ -56,7 +79,6 @@ public class User extends IUser{
         this.name = name;
     }
 
-
     public boolean isPlayer() {
         return player;
     }
@@ -78,11 +100,6 @@ public class User extends IUser{
         this.uniqueId = uniqueId;
     }
 
-    @Override
-    public String toString() {
-        return String.format(name + " (" + uniqueId + ")");
-    }
-
     public Group getGroup() {
         return group;
     }
@@ -94,9 +111,10 @@ public class User extends IUser{
     public boolean hasPermission(Permission permission) {
         return getGroup().hasPermission(permission);
     }
-    public Location getLocation(ICommandSender sender) {
-        Location loc = new Location(1,2,3,4,5);
-        return loc;
+
+    public Location getLocation() {
+
+        return this.location;
     }
 }
 
