@@ -6,6 +6,7 @@ import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.DimensionType;
 
 
 public class User extends IUser{
@@ -15,6 +16,7 @@ public class User extends IUser{
     private Group group;
     private Location location;
     private boolean player = false;
+    private int dimension;
 
     public User(ICommandSender sender) {
         this.setSender(sender);
@@ -97,6 +99,9 @@ public class User extends IUser{
 
     public Group getGroup() {
         return group;
+    }
+    public Integer getDimension(){
+        return this.dimension;
     }
 
     public void setGroup(Group group) {

@@ -12,7 +12,7 @@ import net.minecraft.util.text.TextComponentString;
 public class getPos extends Command {
 
     public getPos() {
-        super("getPos", "get current position");
+        super("getpos", "get current position");
     }
 
     @Override
