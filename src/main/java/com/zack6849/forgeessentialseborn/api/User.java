@@ -18,20 +18,11 @@ public class User {
     public User(ICommandSender sender) {
         this.setSender(sender);
         if (sender instanceof EntityPlayer) {
-
-            int x = sender.getPosition().getX();
-            int y = sender.getPosition().getY();
-            int z = sender.getPosition().getZ();
-            int pitch;
-            int yaw;
-            pitch = 0;
-            yaw = 0;
-
             setPlayer(true);
-            setLocation(z,y,z,pitch,yaw);
         }
         if (isPlayer()) {
             EntityPlayer p = (EntityPlayer) sender.getCommandSenderEntity();
+            this.location = new Location(sender.getPosition());
             if (p != null) {
                 setUniqueId(p.getCachedUniqueIdString());
             }
@@ -42,14 +33,6 @@ public class User {
         setPlayer(true);
         setName(name);
         setUniqueId(id);
-        int x = sender.getPosition().getX();
-        int y = sender.getPosition().getY();
-        int z = sender.getPosition().getZ();
-        int pitch;
-        int yaw;
-        pitch = 0;
-        yaw = 0;
-        setLocation(x, y, z, pitch, yaw);
     }
 
     private void setLocation(int z, int y, int z1, int pitch, int yaw) {
