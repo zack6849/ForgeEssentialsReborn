@@ -1,6 +1,5 @@
 package com.zack6849.forgeessentialseborn.api;
 
-import com.zack6849.forgeessentialseborn.api.Location;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import net.minecraft.command.ICommandSender;
@@ -8,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
 
 
-public class User extends IUser{
+public class User {
     private ICommandSender sender;
     private String name;
     private String uniqueId;
@@ -39,10 +38,6 @@ public class User extends IUser{
         }
     }
 
-    private void setLocation(int z, int y, int z1, int pitch, int yaw) {
-        this.location = new Location(z,y,z,pitch,yaw);
-    }
-
     public User(String name, String id) {
         setPlayer(true);
         setName(name);
@@ -54,7 +49,11 @@ public class User extends IUser{
         int yaw;
         pitch = 0;
         yaw = 0;
-        setLocation(x,y,z,pitch,yaw);
+        setLocation(x, y, z, pitch, yaw);
+    }
+
+    private void setLocation(int z, int y, int z1, int pitch, int yaw) {
+        this.location = new Location(z,y,z,pitch,yaw);
     }
 
     public void sendMessage(String message) {
