@@ -73,7 +73,8 @@ public abstract class Command implements ICommand {
             }
             Permission perm = new Permission("command." + getCommandName(), false);
             Main.log(Level.DEBUG, "found group " + u.getGroup().getName() + " for " + sender.getName());
-            return u.hasPermission(perm);
+            if(u.isPlayer())
+                return u.hasPermission(perm);
         }
         Main.log(Level.INFO, sender.getClass().getSimpleName());
         return false;

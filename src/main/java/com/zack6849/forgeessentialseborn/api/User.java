@@ -47,14 +47,6 @@ public class User extends IUser{
         setPlayer(true);
         setName(name);
         setUniqueId(id);
-        int x = sender.getPosition().getX();
-        int y = sender.getPosition().getY();
-        int z = sender.getPosition().getZ();
-        int pitch;
-        int yaw;
-        pitch = 0;
-        yaw = 0;
-        setLocation(x,y,z,pitch,yaw);
     }
 
     public void sendMessage(String message) {
@@ -81,6 +73,9 @@ public class User extends IUser{
 
     public boolean isPlayer() {
         return player;
+    }
+    public boolean isOp(){
+        return Boolean.parseBoolean(null);
     }
 
     public void setPlayer(boolean player) {
