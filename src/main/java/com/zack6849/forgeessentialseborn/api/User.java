@@ -1,6 +1,5 @@
 package com.zack6849.forgeessentialseborn.api;
 
-import com.zack6849.forgeessentialseborn.api.Location;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import net.minecraft.command.ICommandSender;
@@ -9,7 +8,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DimensionType;
 
 
-public class User extends IUser{
+public class User {
     private ICommandSender sender;
     private String name;
     private String uniqueId;
@@ -21,34 +20,28 @@ public class User extends IUser{
     public User(ICommandSender sender) {
         this.setSender(sender);
         if (sender instanceof EntityPlayer) {
-
-            int x = sender.getPosition().getX();
-            int y = sender.getPosition().getY();
-            int z = sender.getPosition().getZ();
-            int pitch;
-            int yaw;
-            pitch = 0;
-            yaw = 0;
-
             setPlayer(true);
-            setLocation(z,y,z,pitch,yaw);
         }
         if (isPlayer()) {
             EntityPlayer p = (EntityPlayer) sender.getCommandSenderEntity();
+            this.location = new Location(sender.getPosition());
             if (p != null) {
                 setUniqueId(p.getCachedUniqueIdString());
             }
         }
     }
 
-    private void setLocation(int z, int y, int z1, int pitch, int yaw) {
-        this.location = new Location(z,y,z,pitch,yaw);
-    }
-
     public User(String name, String id) {
         setPlayer(true);
         setName(name);
         setUniqueId(id);
+<<<<<<< HEAD
+=======
+    }
+
+    private void setLocation(int z, int y, int z1, int pitch, int yaw) {
+        this.location = new Location(z,y,z,pitch,yaw);
+>>>>>>> 57c0e4650278c54b3e4d47dac1e01d0a5644a0a1
     }
 
     public void sendMessage(String message) {
