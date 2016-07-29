@@ -5,13 +5,12 @@ import com.zack6849.forgeessentialseborn.api.User;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TextComponentString;
 /**
  * Created by Rory on 7/27/2016.
  */
-public class getPos extends Command {
+public class GetPosition extends Command {
 
-    public getPos() {
+    public GetPosition() {
         super("getpos", "get current position");
     }
 
