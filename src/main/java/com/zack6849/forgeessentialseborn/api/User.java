@@ -35,13 +35,10 @@ public class User {
         setPlayer(true);
         setName(name);
         setUniqueId(id);
-<<<<<<< HEAD
-=======
     }
 
     private void setLocation(int z, int y, int z1, int pitch, int yaw) {
         this.location = new Location(z,y,z,pitch,yaw);
->>>>>>> 57c0e4650278c54b3e4d47dac1e01d0a5644a0a1
     }
 
     public void sendMessage(String message) {
