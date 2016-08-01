@@ -1,6 +1,7 @@
 package com.zack6849.forgeessentialseborn.commands;
 
-import com.zack6849.forgeessentialseborn.api.*;
+import com.zack6849.forgeessentialseborn.api.Location;
+import com.zack6849.forgeessentialseborn.api.User;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -10,10 +11,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 
-public class ascend extends Command {
+public class Ascend extends Command {
 
-    public ascend() {
-        super("ascend", "Shows version information");
+    public Ascend() {
+        super("Ascend", "Shows version information");
     }
 
     @Override

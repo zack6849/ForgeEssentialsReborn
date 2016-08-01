@@ -1,9 +1,9 @@
 package com.zack6849.forgeessentialseborn;
 
+import com.zack6849.forgeessentialseborn.api.User;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.PermissionManager;
-import com.zack6849.forgeessentialseborn.api.User;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,6 +19,7 @@ import java.util.Set;
 
 @Mod(modid = Main.MODID, version = Main.VERSION, acceptableRemoteVersions = "*")
 public class Main {
+
     public static final String ID = "Forge Essentials Reborn";
     public static final String MODID = "ForgeEssentialsReborn";
     public static final String VERSION = "1.0";
