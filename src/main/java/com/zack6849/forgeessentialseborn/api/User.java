@@ -78,7 +78,6 @@ public class User {
         return !player;
     }
 
-
     public String getUniqueId() {
         return uniqueId;
     }
@@ -90,6 +89,7 @@ public class User {
     public Group getGroup() {
         return group;
     }
+
     public Integer getDimension(){
         return this.dimension;
     }
