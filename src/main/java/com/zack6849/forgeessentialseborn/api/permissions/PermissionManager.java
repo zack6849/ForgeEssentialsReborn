@@ -4,6 +4,7 @@ import com.google.common.io.Files;
 import com.google.gson.*;
 import com.zack6849.forgeessentialseborn.Main;
 import com.zack6849.forgeessentialseborn.api.User;
+import com.zack6849.forgeessentialseborn.utils.StorageHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Level;
 
@@ -36,33 +37,11 @@ public class PermissionManager {
         return usercache;
     }
 
-    public JsonObject loadJson() {
-        String json = null;
-        try {
-            json = Files.toString(file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
-            JsonElement jelement = new JsonParser().parse(json);
-            return jelement.getAsJsonObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
     public void load() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                BufferedReader in = new BufferedReader(new InputStreamReader(Main.getInstance().getClass().getResourceAsStream("/permissions.json")));
-                ArrayList<String> lines = new ArrayList<>();
-                String line;
-                while ((line = in.readLine()) != null) {
-                    lines.add(line);
-                }
-                FileUtils.writeLines(file, lines);
-            }
-            data = loadJson();
+            data = StorageHandler.loadJson(file);
             groups.clear();
             String json = Files.toString(file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
             JsonObject group = data.get("groups").getAsJsonObject();

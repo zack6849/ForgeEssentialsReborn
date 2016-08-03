@@ -4,6 +4,7 @@ import com.zack6849.forgeessentialseborn.api.User;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.PermissionManager;
+import com.zack6849.forgeessentialseborn.utils.StorageHandler;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.apache.logging.log4j.Level;
 import org.reflections.Reflections;
 
+import java.io.File;
 import java.util.Set;
 
 @Mod(modid = Main.MODID, version = Main.VERSION, acceptableRemoteVersions = "*")
@@ -41,9 +43,9 @@ public class Main {
     public static void log(Level level, String message) {
         logger.log(level, String.format("[%s] %s", Main.MODID, message));
     }
-
     @EventHandler
     public void serverInit(FMLServerStartingEvent event) {
+
         instance = this;
         logger = FMLLog.getLogger();
         server = event.getServer();
@@ -56,7 +58,16 @@ public class Main {
         ServerCommandManager manager = (ServerCommandManager) event.getServer().getCommandManager();
         Reflections reflections = new Reflections("com.zack6849.forgeessentialseborn.commands");
         Set<Class<? extends Command>> subtypes = reflections.getSubTypesOf(Command.class);
-        Main.log(Level.INFO, "Complete. found " + subtypes.size() + " commands.");
+
+        //
+        //Load config files if any are required
+        //
+        StorageHandler.createConfig("warps.json");
+
+
+
+
+        Main.log(Level.INFO, "Complete. found " + subtypes.size() + " commands. "+Main.getInstance().getServer().getDataDirectory().getAbsolutePath().substring(0, Main.getInstance().getServer().getDataDirectory().getAbsolutePath().length()-1) + "config"+File.separator+ "ForgeEssentialsReborn"+File.separator);
         for (Class c : subtypes) {
             try {
                 Main.log(Level.INFO, "Registering command: " + c.getSimpleName());
