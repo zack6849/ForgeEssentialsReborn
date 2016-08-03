@@ -3,7 +3,9 @@ package com.zack6849.forgeessentialseborn.utils;
         import com.google.common.io.Files;
         import com.google.gson.*;
         import com.zack6849.forgeessentialseborn.Main;
-        import java.io.*;
+
+        import java.io.File;
+        import java.io.IOException;
         import java.nio.charset.Charset;
         import org.apache.logging.log4j.Level;
 
@@ -19,7 +21,7 @@ package com.zack6849.forgeessentialseborn.utils;
         try {
             File file = new File(Main.getInstance().getServer().getDataDirectory().getAbsolutePath().substring(0, Main.getInstance().getServer().getDataDirectory().getAbsolutePath().length()-1) + "config"+File.separator+ "ForgeEssentialsReborn"+File.separator+name);
             if (!file.exists()) {
-                file.createNewFile();
+                Files.write("{}", file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
             } else {
                 Main.log(Level.INFO, name + " already exists, continuing...");
             }
@@ -27,6 +29,11 @@ package com.zack6849.forgeessentialseborn.utils;
             e.printStackTrace();
         }
     }
+
+    public static void createFilledConfig(JsonObject name) {
+
+    }
+
 
     public static JsonObject loadJson(File file) {
         String json;
@@ -41,4 +48,7 @@ package com.zack6849.forgeessentialseborn.utils;
     }
 
 
+    public static File getConfigLocation(String s) {
+        return new File(Main.getInstance().getServer().getDataDirectory().getAbsolutePath().substring(0, Main.getInstance().getServer().getDataDirectory().getAbsolutePath().length()-1) + "config"+File.separator+ "ForgeEssentialsReborn"+File.separator+s);
+    }
 }
