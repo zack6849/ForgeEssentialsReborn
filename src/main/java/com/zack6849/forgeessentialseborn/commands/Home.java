@@ -12,11 +12,11 @@ import org.apache.logging.log4j.Level;
 /**
  * Created by Rory on 7/22/2016.
  */
-public class Warp extends Command {
+public class Home extends Command {
 
     public Location loc;
 
-    public Warp() {
+    public Home() {
         super("warp", "warps to a set location");
     }
 

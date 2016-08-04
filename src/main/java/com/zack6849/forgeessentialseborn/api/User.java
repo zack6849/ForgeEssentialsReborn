@@ -17,7 +17,6 @@ public class User {
     private Location location;
     private Location lastlocation;
     private boolean player = false;
-    private int dimension;
 
     public User(ICommandSender sender) {
         this.name = sender.getName();
@@ -72,16 +71,9 @@ public class User {
     public boolean isPlayer() {
         return player;
     }
-    public boolean isOp(){
-        return Boolean.parseBoolean(null);
-    }
 
     public void setPlayer(boolean player) {
         this.player = player;
-    }
-
-    public boolean isConsole() {
-        return !player;
     }
 
     public String getUniqueId() {
@@ -94,10 +86,6 @@ public class User {
 
     public Group getGroup() {
         return group;
-    }
-
-    public Integer getDimension(){
-        return this.dimension;
     }
 
     public void setGroup(Group group) {

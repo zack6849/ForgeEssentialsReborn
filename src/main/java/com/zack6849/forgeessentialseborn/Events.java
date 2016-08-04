@@ -16,8 +16,8 @@ public class Events {
     public void join(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
         Main.log(Level.INFO, event.player.getUniqueID().toString());
-        User u = PlayerUtils.fromUUID(player.getUniqueID().toString());
-        Main.log(Level.INFO, "User " + player.getName() + " is of the rank " + u.getGroup().getName());
-        event.player.getServer().getPlayerList().sendChatMsg(new TextComponentString("User " + player.getName() + " is of the rank " + u.getGroup().getName()));
+        User user = PlayerUtils.fromUUID(player.getUniqueID().toString());
+        Main.log(Level.INFO, "User " + player.getName() + " is of the rank " + user.getGroup().getName());
+        event.player.getServer().getPlayerList().sendChatMsg(new TextComponentString("User " + player.getName() + " is of the rank " + user.getGroup().getName()));
     }
 }
