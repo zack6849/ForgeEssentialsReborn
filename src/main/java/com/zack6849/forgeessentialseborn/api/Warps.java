@@ -92,4 +92,16 @@ public class Warps {
     }
 
 
+    public static void delWarp(String playername, String warpname) {
+        try{
+            data.getAsJsonObject(playername).remove(warpname);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        try {
+            Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
