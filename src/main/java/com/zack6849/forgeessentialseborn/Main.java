@@ -1,7 +1,7 @@
 package com.zack6849.forgeessentialseborn;
 
 import com.zack6849.forgeessentialseborn.api.User;
-import com.zack6849.forgeessentialseborn.api.Warp;
+import com.zack6849.forgeessentialseborn.api.Warps;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.PermissionManager;
@@ -71,7 +71,7 @@ public class Main {
         //
         //read config files
         //
-        Warp.setGlobalWarpList();
+        Warps.setGlobalWarpList();
 
 
 

@@ -29,10 +29,12 @@ public class Ascend extends Command {
 
         IBlockState block = world.getBlockState(bs);
         int x = 0;
-        int y = (int)location.getY();
-        while(x < 20){
+        int playerx = user.getSender().getPosition().getX();
+        int playery = user.getSender().getPosition().getY();
+        int playerz = user.getSender().getPosition().getZ();
+        while(x < 30){
             if(block.getMaterial() == Material.AIR){
-                bs = new BlockPos(bs.getX(),bs.getY()+1,bs.getZ());
+                bs = new BlockPos(playerx,playery,playerz);
                 block = world.getBlockState(bs);
             } else{
                 break;
@@ -40,7 +42,7 @@ public class Ascend extends Command {
             x++;
         }
         x = 0;
-        while(x < 10){
+        while(x < 30){
             if(block.getMaterial() != Material.AIR){
                 bs = new BlockPos(bs.getX(),bs.getY()+1,bs.getZ());
                 block = world.getBlockState(bs);

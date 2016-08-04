@@ -1,12 +1,14 @@
 package com.zack6849.forgeessentialseborn.api;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.util.math.BlockPos;
 
 public class Location {
 
-    private double x;
-    private double y;
-    private double z;
+    private int x;
+    private int y;
+    private int z;
     private float pitch;
     private float yaw;
     private World world;
@@ -31,27 +33,27 @@ public class Location {
         return this.getX() + " " + this.getY() + " " + this.getZ() + " -- Pitch: " + this.getPitch() + "  yaw:" + this.getYaw();
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public double getZ() {
+    public int getZ() {
         return z;
     }
 
-    public void setZ(double z) {
+    public void setZ(int z) {
         this.z = z;
     }
 
@@ -77,5 +79,16 @@ public class Location {
 
     public void setWorld(World world) {
         this.world = world;
+    }
+
+    public JsonObject toJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("x", this.x);
+        jsonObject.addProperty("y", this.y);
+        jsonObject.addProperty("z", this.z);
+        jsonObject.addProperty("pitch", this.pitch);
+        jsonObject.addProperty("yaw", this.yaw);
+
+        return jsonObject;
     }
 }

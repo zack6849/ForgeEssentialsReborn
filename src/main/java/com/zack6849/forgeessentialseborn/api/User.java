@@ -5,7 +5,8 @@ import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.DimensionType;
+
+import java.util.ArrayList;
 
 
 public class User {
@@ -14,10 +15,12 @@ public class User {
     private String uniqueId;
     private Group group;
     private Location location;
+    private Location lastlocation;
     private boolean player = false;
     private int dimension;
 
     public User(ICommandSender sender) {
+        this.name = sender.getName();
         this.setSender(sender);
         if (sender instanceof EntityPlayer) {
             setPlayer(true);
@@ -45,6 +48,9 @@ public class User {
         if (sender != null) {
             sender.addChatMessage(new TextComponentString(message));
         }
+    }
+    public void teleport(Location location){
+        this.getSender().getCommandSenderEntity().setPositionAndUpdate(location.getX(),location.getY(),location.getZ());
     }
 
     public ICommandSender getSender() {
@@ -103,8 +109,11 @@ public class User {
     }
 
     public Location getLocation() {
-
         return this.location;
+    }
+    public ArrayList<String> getWarps(){
+
+        return Warps.getWarps(this.getName());
     }
 }
 
