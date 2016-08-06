@@ -17,15 +17,12 @@ import java.util.Map;
 import java.util.Set;
 
 
+public class Teleports {
 
-public class Warps {
 
-
-    private static File file = StorageHandler.getConfigLocation("warps.json");
+    private static File file = StorageHandler.moveConfig("warps.json");
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static JsonObject data = StorageHandler.loadJson(file);
-
-    private static ArrayList<String> globalwarplist;
 
 
 
@@ -39,17 +36,6 @@ public class Warps {
         }
         return warpsbuilder;
 
-    }
-
-    public static ArrayList<String> setGlobalWarpList() {
-
-        ArrayList<String> globalwarpsbuilder = new ArrayList<String>();
-        Set<Map.Entry<String, JsonElement>> entries = data.getAsJsonObject("~Global").entrySet();//will return members of the object
-        for (Map.Entry<String, JsonElement> entry: entries) {
-            Main.log(Level.INFO, entry.getKey());
-            globalwarpsbuilder.add(entry.getKey());
-        }
-        return globalwarpsbuilder;
     }
 
     public static boolean isWarp(String playername, String warpname){
@@ -67,15 +53,17 @@ public class Warps {
     }
 
     public static Location getWarpLocation(String playername, String warpname){
-
-        JsonObject thiswarp = data.getAsJsonObject(playername).getAsJsonObject(warpname);
-        int warpx = thiswarp.get("x").getAsInt();
-        int warpy = thiswarp.get("y").getAsInt();
-        int warpz = thiswarp.get("z").getAsInt();
-        int warppitch = thiswarp.get("pitch").getAsInt();
-        int warpyaw = thiswarp.get("yaw").getAsInt();
-        Location location = new Location(warpx,warpy,warpz,warppitch,warpyaw);
-        return location;
+        if (isWarp(playername, warpname)) {
+            JsonObject thiswarp = data.getAsJsonObject(playername).getAsJsonObject(warpname);
+            int warpx = thiswarp.get("x").getAsInt();
+            int warpy = thiswarp.get("y").getAsInt();
+            int warpz = thiswarp.get("z").getAsInt();
+            int warppitch = thiswarp.get("pitch").getAsInt();
+            int warpyaw = thiswarp.get("yaw").getAsInt();
+            Location location = new Location(warpx,warpy,warpz,warppitch,warpyaw);
+            return location;
+        }
+            return null;
     }
 
     public static void setWarp(String playername, String warpname, Location location){
@@ -90,11 +78,36 @@ public class Warps {
             e.printStackTrace();
         }
     }
+    public static void setGlobalWarp(String warpname, Location location){
+        try{
+            data.getAsJsonObject("Global").add(warpname, location.toJson());
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        try {
+            Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static void delWarp(String playername, String warpname) {
         try{
             data.getAsJsonObject(playername).remove(warpname);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        try {
+            Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void delGlobalWarp(String warpname) {
+        try{
+            data.getAsJsonObject("Global").remove(warpname);
         } catch(Exception e){
             e.printStackTrace();
         }

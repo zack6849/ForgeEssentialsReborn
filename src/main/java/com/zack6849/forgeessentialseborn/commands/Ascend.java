@@ -56,13 +56,12 @@ public class Ascend extends Command {
                     //moveEntity does not teleport!
 
                     user.getSender().getCommandSenderEntity().setPositionAndUpdate(bs.getX(),bs.getY(),bs.getZ());
-                    user.sendMessage("Ascending to "+bs.getX()+" "+bs.getY()+" "+bs.getZ());
                     break;
                 }
             }
             x++;
         }
-        user.sendMessage("Ascension Complete");
+        user.sendMessage("CommandAscend");
 
     }
 

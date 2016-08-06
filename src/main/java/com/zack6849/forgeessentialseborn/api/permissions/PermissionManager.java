@@ -41,6 +41,10 @@ public class PermissionManager {
     public void load() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
+            if(!file.exists()){
+                StorageHandler.moveConfig("permissions.json");
+            }
+
             data = StorageHandler.loadJson(file);
             groups.clear();
             String json = Files.toString(file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());

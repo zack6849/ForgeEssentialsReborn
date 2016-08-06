@@ -1,7 +1,7 @@
 package com.zack6849.forgeessentialseborn;
 
 import com.zack6849.forgeessentialseborn.api.User;
-import com.zack6849.forgeessentialseborn.api.Warps;
+import com.zack6849.forgeessentialseborn.api.Teleports;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.PermissionManager;
@@ -63,15 +63,9 @@ public class Main {
         //
         //Load blank config files if any are required
         //
-        StorageHandler.createConfig("warps.json");
-
-
-
-
-        //
-        //read config files
-        //
-        Warps.setGlobalWarpList();
+        StorageHandler.moveConfig("warps.json");
+        StorageHandler.moveConfig("strings.json");
+        StorageHandler.moveConfig("messages.json");
 
 
 

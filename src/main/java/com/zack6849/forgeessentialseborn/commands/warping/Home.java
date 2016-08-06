@@ -1,8 +1,8 @@
-package com.zack6849.forgeessentialseborn.commands;
+package com.zack6849.forgeessentialseborn.commands.warping;
 
 import com.zack6849.forgeessentialseborn.Main;
 import com.zack6849.forgeessentialseborn.api.User;
-import com.zack6849.forgeessentialseborn.api.Warps;
+import com.zack6849.forgeessentialseborn.api.Teleports;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.Location;
 import net.minecraft.command.ICommandSender;
@@ -24,8 +24,8 @@ public class Home extends Command {
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         User user = new User(sender);
         Main.log(Level.INFO, args[0]);
-        if(!args[0].isEmpty() && Warps.isWarp(user.getName(), args[0])){
-                Location location = Warps.getWarpLocation(user.getName(), args[0]);
+        if(!args[0].isEmpty() && Teleports.isWarp(user.getName(), args[0])){
+                Location location = Teleports.getWarpLocation(user.getName(), args[0]);
                 user.teleport(location);
 
         } else {

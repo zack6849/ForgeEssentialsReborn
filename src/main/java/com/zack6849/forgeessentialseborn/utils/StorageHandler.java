@@ -3,37 +3,26 @@ package com.zack6849.forgeessentialseborn.utils;
         import com.google.common.io.Files;
         import com.google.gson.*;
         import com.zack6849.forgeessentialseborn.Main;
-
-        import java.io.File;
-        import java.io.IOException;
+        import java.io.*;
+        import java.net.URL;
         import java.nio.charset.Charset;
+        import org.apache.commons.io.FileUtils;
         import org.apache.logging.log4j.Level;
 
         public class StorageHandler {
 
-    StorageHandler() {
-
-    }
-
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    public static void createConfig(String name) {
+    public static File moveConfig(String name){
         try {
-            File file = new File(Main.getInstance().getServer().getDataDirectory().getAbsolutePath().substring(0, Main.getInstance().getServer().getDataDirectory().getAbsolutePath().length()-1) + "config"+File.separator+ "ForgeEssentialsReborn"+File.separator+name);
-            if (!file.exists()) {
-                Files.write("{}", file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
-            } else {
-                Main.log(Level.INFO, name + " already exists, continuing...");
-            }
-        } catch (IOException e) {
+            URL inputUrl = Main.getInstance().getClass().getResource("/" + name);
+            File dest = new File(Main.getInstance().getServer().getDataDirectory().getAbsoluteFile() + File.separator + "config" + File.separator + "ForgeEssentialsReborn", name);
+            FileUtils.copyURLToFile(inputUrl, dest);
+            return dest;
+        } catch(IOException e){
             e.printStackTrace();
+            Main.log(Level.INFO, "jar File missing json config");
         }
+        return null;
     }
-
-    public static void createFilledConfig(JsonObject name) {
-
-    }
-
 
     public static JsonObject loadJson(File file) {
         String json;
@@ -43,12 +32,7 @@ package com.zack6849.forgeessentialseborn.utils;
             return jelement.getAsJsonObject();
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
-    }
-
-
-    public static File getConfigLocation(String s) {
-        return new File(Main.getInstance().getServer().getDataDirectory().getAbsolutePath().substring(0, Main.getInstance().getServer().getDataDirectory().getAbsolutePath().length()-1) + "config"+File.separator+ "ForgeEssentialsReborn"+File.separator+s);
     }
 }

@@ -2,6 +2,7 @@ package com.zack6849.forgeessentialseborn.api;
 
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.Permission;
+import com.zack6849.forgeessentialseborn.utils.StringHandler;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
@@ -45,6 +46,7 @@ public class User {
 
     public void sendMessage(String message) {
         if (sender != null) {
+            StringHandler.sendMessage(sender, message);
             sender.addChatMessage(new TextComponentString(message));
         }
     }
@@ -101,7 +103,7 @@ public class User {
     }
     public ArrayList<String> getWarps(){
 
-        return Warps.getWarps(this.getName());
+        return Teleports.getWarps(this.getName());
     }
 }
 
