@@ -1,8 +1,8 @@
 package com.zack6849.forgeessentialseborn.api.command;
 
 import com.zack6849.forgeessentialseborn.Main;
-import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import com.zack6849.forgeessentialseborn.api.User;
+import com.zack6849.forgeessentialseborn.api.permissions.Permission;
 import com.zack6849.forgeessentialseborn.utils.PlayerUtils;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -57,7 +57,24 @@ public abstract class Command implements ICommand {
     }
 
     @Override
-    public abstract void execute(MinecraftServer server, ICommandSender sender, String[] args);
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
+        User user = new User(sender);
+        CommandResult result = execute(user, args);
+        if (result == CommandResult.PLAYER_ONLY) {
+            user.sendMessage("Sorry, you can't use this command unless you're a player!");
+        }
+        if (result == CommandResult.CONSOLE_ONLY) {
+            user.sendMessage("Sorry, this command is console only!");
+        }
+        if (result == CommandResult.NO_PERMISSION) {
+            user.sendMessage("Sorry, you don't have permission to run that command!");
+        }
+        if (result == CommandResult.FALIURE) {
+            user.sendMessage("An unhandled error occurred while processing your command, check the server log for more details");
+        }
+    }
+
+    public abstract CommandResult execute(User user, String[] args);
 
     @Override
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
@@ -73,7 +90,7 @@ public abstract class Command implements ICommand {
             }
             Permission perm = new Permission("command." + getCommandName(), false);
             Main.log(Level.DEBUG, "found group " + u.getGroup().getName() + " for " + sender.getName());
-            if(u.isPlayer())
+            if (u.isPlayer())
                 return u.hasPermission(perm);
         }
         Main.log(Level.INFO, sender.getClass().getSimpleName());

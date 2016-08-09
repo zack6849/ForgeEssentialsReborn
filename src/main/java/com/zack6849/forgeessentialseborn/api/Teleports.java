@@ -1,12 +1,9 @@
 package com.zack6849.forgeessentialseborn.api;
 
 import com.google.common.io.Files;
-import com.google.gson.JsonElement;
+import com.google.gson.*;
 import com.zack6849.forgeessentialseborn.Main;
 import com.zack6849.forgeessentialseborn.utils.StorageHandler;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
@@ -19,102 +16,143 @@ import java.util.Set;
 
 public class Teleports {
 
-
     private static File file = StorageHandler.moveConfig("warps.json");
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static JsonObject data = StorageHandler.loadJson(file);
 
 
-
-
-    public static ArrayList<String> getWarps(String playername) {
+    public static ArrayList<String> getWarps(String uuid) {
         ArrayList<String> warpsbuilder = new ArrayList<String>();
-        Set<Map.Entry<String, JsonElement>> entries = data.getAsJsonObject(playername).entrySet();//will return members of the object
-        for (Map.Entry<String, JsonElement> entry: entries) {
+        Set<Map.Entry<String, JsonElement>> entries = data.getAsJsonObject(uuid).entrySet();//will return members of the object
+        for (Map.Entry<String, JsonElement> entry : entries) {
             Main.log(Level.INFO, entry.getKey());
             warpsbuilder.add(entry.getKey());
         }
         return warpsbuilder;
-
     }
 
-    public static boolean isWarp(String playername, String warpname){
-        try{
-            Main.log(Level.INFO, playername);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-       if (!data.has(playername)){
-           return false;
-       } else if(!data.getAsJsonObject(playername).has(warpname)){
-           return false;
-       }
-       return true;
+    /**
+     * Checks if a warp exists in our files for a player
+     *
+     * @param uuid the UUID of the player
+     * @param name the name of the warp to check for
+     * @return true if the warp exists
+     */
+    public static boolean isPlayerWarp(String uuid, String name) {
+        return data.has(uuid) && data.get(uuid).getAsJsonObject().has(name);
     }
 
-    public static Location getWarpLocation(String playername, String warpname){
-        if (isWarp(playername, warpname)) {
-            JsonObject thiswarp = data.getAsJsonObject(playername).getAsJsonObject(warpname);
+    /**
+     * Checks if a global warp exists in our files
+     *
+     * @param name the name of the warp
+     * @return true if the warp exists
+     */
+    public static boolean isGlobalWarp(String name) {
+        return data.has("global") && data.get("global").getAsJsonObject().has(name);
+    }
+
+    /**
+     * Converts a warp to a location
+     *
+     * @param uuid player uuid
+     * @param name name of the warp to get
+     * @return null if nothing found, otherwise the location
+     */
+    public static Location getPlayerWarpByName(String uuid, String name) {
+        if (isPlayerWarp(uuid, name)) {
+            JsonObject thiswarp = data.getAsJsonObject(uuid).getAsJsonObject(name);
             int warpx = thiswarp.get("x").getAsInt();
             int warpy = thiswarp.get("y").getAsInt();
             int warpz = thiswarp.get("z").getAsInt();
             int warppitch = thiswarp.get("pitch").getAsInt();
             int warpyaw = thiswarp.get("yaw").getAsInt();
-            Location location = new Location(warpx,warpy,warpz,warppitch,warpyaw);
-            return location;
+            return new Location(warpx, warpy, warpz, warppitch, warpyaw);
         }
-            return null;
+        return null;
     }
 
-    public static void setWarp(String playername, String warpname, Location location){
-        try{
-            data.getAsJsonObject(playername).add(warpname, location.toJson());
-        } catch(Exception e){
-            e.printStackTrace();
+    /**
+     * Deletes a global warp by name
+     *
+     * @param name the warp to remove
+     */
+    public static void deleteGlobalWarp(String name) {
+        if (!data.has("global")) {
+            data.add("global", new JsonObject());
         }
-        try {
-            Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (data.get("global").getAsJsonObject().has(name)) {
+            data.getAsJsonObject("global").remove(name);
         }
-    }
-    public static void setGlobalWarp(String warpname, Location location){
-        try{
-            data.getAsJsonObject("Global").add(warpname, location.toJson());
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        try {
-            Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        saveData();
     }
 
-
-    public static void delWarp(String playername, String warpname) {
-        try{
-            data.getAsJsonObject(playername).remove(warpname);
-        } catch(Exception e){
-            e.printStackTrace();
+    /**
+     * Create a global warp
+     *
+     * @param name     the name for the warp
+     * @param location the location
+     */
+    public static void createGlobalWarp(String name, Location location) {
+        if (!data.has("global")) {
+            data.add("global", new JsonObject());
         }
-        try {
-            Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        data.getAsJsonObject("global").add(name, location.toJson());
+        saveData();
     }
 
-    public static void delGlobalWarp(String warpname) {
-        try{
-            data.getAsJsonObject("Global").remove(warpname);
-        } catch(Exception e){
-            e.printStackTrace();
+    /**
+     * Creates a warp by name for a player
+     *
+     * @param uuid     player uuid
+     * @param name     player name
+     * @param location location to set the warp for
+     */
+    public static void createPlayerWarp(String uuid, String name, Location location) {
+        if (!data.has("players")) {
+            data.add("players", new JsonObject());
         }
-        try {
-            Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!data.get("players").getAsJsonObject().has(uuid)) {
+            data.add(uuid, new JsonArray());
         }
+        data.getAsJsonObject(uuid).add(name, location.toJson());
+        saveData();
+    }
+
+    /**
+     * Deletes a player's warp
+     *
+     * @param uuid player uuid
+     * @param name warp name
+     */
+    public static void deletePlayerWarp(String uuid, String name) {
+        if (!data.has("players")) {
+            data.add("players", new JsonObject());
+        }
+        if (!data.get("players").getAsJsonObject().has(uuid)) {
+            data.add(uuid, new JsonArray());
+        }
+        if (data.get("players").getAsJsonObject().get(uuid).getAsJsonObject().has(name)) {
+            data.get("players").getAsJsonObject().get(uuid).getAsJsonObject().remove(name);
+        }
+        saveData();
+    }
+
+    /**
+     * Write all changes to disk
+     */
+    public static boolean saveData() {
+        boolean success = false;
+        if (data != null) {
+            try {
+                Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
+                success = true;
+            } catch (IOException e) {
+                Main.log(Level.WARN, "Failed to save warp data!");
+                e.printStackTrace();
+                success = false;
+            }
+        }
+        return success;
     }
 }

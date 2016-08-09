@@ -20,10 +20,10 @@ public class StringHandler {
     private static JsonObject data = StorageHandler.loadJson(file);
 
 
-    private static String getString(String string){
+    private static String getString(String string) {
         try {
             return data.get(string).toString();
-        } catch(Exception e){
+        } catch (Exception e) {
             return string;
         }
     }
@@ -38,18 +38,18 @@ public class StringHandler {
     public static String parseString(User user, String message) {
         getString(message);
         String worldname = user.getSender().getEntityWorld().getWorldInfo().getWorldName();
-        String time = ""+user.getSender().getEntityWorld().getWorldInfo().getWorldTime();
+        String time = "" + user.getSender().getEntityWorld().getWorldInfo().getWorldTime();
         String username = user.getName();
         String location = user.getLocation().toString();
         String group = user.getGroup().getName();
         String UUID = user.getUniqueId();
 
-        message = message.replace("{WORLDTIME}",worldname);
-        message = message.replace("{WORLDNAME}",worldname);
-        message = message.replace("{USERNAME}",username);
-        message = message.replace("{USERLOCATION}",location);
-        message = message.replace("{USERGROUP}",group);
-        message = message.replace("{UUID}",UUID);
+        message = message.replace("{WORLDTIME}", worldname);
+        message = message.replace("{WORLDNAME}", worldname);
+        message = message.replace("{USERNAME}", username);
+        message = message.replace("{USERLOCATION}", location);
+        message = message.replace("{USERGROUP}", group);
+        message = message.replace("{UUID}", UUID);
         return message;
     }
 }

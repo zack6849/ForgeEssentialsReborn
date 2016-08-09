@@ -1,7 +1,6 @@
 package com.zack6849.forgeessentialseborn;
 
 import com.zack6849.forgeessentialseborn.api.User;
-import com.zack6849.forgeessentialseborn.api.Teleports;
 import com.zack6849.forgeessentialseborn.api.command.Command;
 import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.permissions.PermissionManager;
@@ -44,6 +43,7 @@ public class Main {
     public static void log(Level level, String message) {
         logger.log(level, String.format("[%s] %s", Main.MODID, message));
     }
+
     @EventHandler
     public void serverInit(FMLServerStartingEvent event) {
 
@@ -68,8 +68,7 @@ public class Main {
         StorageHandler.moveConfig("messages.json");
 
 
-
-        Main.log(Level.INFO, "Complete. found " + subtypes.size() + " commands. "+Main.getInstance().getServer().getDataDirectory().getAbsolutePath().substring(0, Main.getInstance().getServer().getDataDirectory().getAbsolutePath().length()-1) + "config"+File.separator+ "ForgeEssentialsReborn"+File.separator);
+        Main.log(Level.INFO, "Complete. found " + subtypes.size() + " commands. " + Main.getInstance().getServer().getDataDirectory().getAbsolutePath().substring(0, Main.getInstance().getServer().getDataDirectory().getAbsolutePath().length() - 1) + "config" + File.separator + "ForgeEssentialsReborn" + File.separator);
         for (Class c : subtypes) {
             try {
                 Main.log(Level.INFO, "Registering command: " + c.getSimpleName());
