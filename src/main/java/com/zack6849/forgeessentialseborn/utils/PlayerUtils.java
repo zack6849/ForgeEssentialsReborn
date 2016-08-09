@@ -2,8 +2,8 @@ package com.zack6849.forgeessentialseborn.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.zack6849.forgeessentialseborn.Main;
-import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import com.zack6849.forgeessentialseborn.api.User;
+import com.zack6849.forgeessentialseborn.api.permissions.Group;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 /**

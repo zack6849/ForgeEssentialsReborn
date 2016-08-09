@@ -1,8 +1,8 @@
 {
-  "Global": {
+  "global": {
   },
-  "Players": {
-    "Riaku": {
+  "players": {
+    "6b9ab0d6-a176-4f02-b895-d5297d255876": {
       "warp1": {
         "world": 0,
         "pitch": 10,

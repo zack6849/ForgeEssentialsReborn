@@ -1,10 +1,11 @@
 package com.zack6849.forgeessentialseborn.commands;
 
-import com.zack6849.forgeessentialseborn.api.command.Command;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TextComponentString;
 import com.zack6849.forgeessentialseborn.Main;
+import com.zack6849.forgeessentialseborn.api.User;
+import com.zack6849.forgeessentialseborn.api.command.Command;
+import com.zack6849.forgeessentialseborn.api.command.CommandResult;
+import net.minecraft.util.text.TextComponentString;
+
 /**
  * Created by Rory on 7/26/2016.
  */
@@ -15,8 +16,9 @@ public class Version extends Command {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        sender.addChatMessage(new TextComponentString(Main.VERSION));
+    public CommandResult execute(User user, String[] args) {
+        user.getSender().addChatMessage(new TextComponentString(Main.VERSION));
+        return CommandResult.SUCCESS;
     }
 
 }

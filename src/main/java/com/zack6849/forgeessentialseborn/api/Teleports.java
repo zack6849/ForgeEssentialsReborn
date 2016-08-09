@@ -24,7 +24,7 @@ public class Teleports {
     public static ArrayList<String> getWarps(String uuid) {
         ArrayList<String> warpsbuilder = new ArrayList<String>();
         Set<Map.Entry<String, JsonElement>> entries = data.getAsJsonObject(uuid).entrySet();//will return members of the object
-        for (Map.Entry<String, JsonElement> entry: entries) {
+        for (Map.Entry<String, JsonElement> entry : entries) {
             Main.log(Level.INFO, entry.getKey());
             warpsbuilder.add(entry.getKey());
         }
@@ -67,7 +67,7 @@ public class Teleports {
             int warpz = thiswarp.get("z").getAsInt();
             int warppitch = thiswarp.get("pitch").getAsInt();
             int warpyaw = thiswarp.get("yaw").getAsInt();
-            return new Location(warpx, warpy, warpz,warppitch, warpyaw);
+            return new Location(warpx, warpy, warpz, warppitch, warpyaw);
         }
         return null;
     }
@@ -101,6 +101,13 @@ public class Teleports {
         saveData();
     }
 
+    /**
+     * Creates a warp by name for a player
+     *
+     * @param uuid     player uuid
+     * @param name     player name
+     * @param location location to set the warp for
+     */
     public static void createPlayerWarp(String uuid, String name, Location location) {
         if (!data.has("players")) {
             data.add("players", new JsonObject());
@@ -112,7 +119,12 @@ public class Teleports {
         saveData();
     }
 
-
+    /**
+     * Deletes a player's warp
+     *
+     * @param uuid player uuid
+     * @param name warp name
+     */
     public static void deletePlayerWarp(String uuid, String name) {
         if (!data.has("players")) {
             data.add("players", new JsonObject());
@@ -126,14 +138,21 @@ public class Teleports {
         saveData();
     }
 
-    public static void saveData() {
+    /**
+     * Write all changes to disk
+     */
+    public static boolean saveData() {
+        boolean success = false;
         if (data != null) {
             try {
                 Files.write(gson.toJson(data), file, Charset.isSupported("UTF-8") ? Charset.forName("UTF-8") : Charset.defaultCharset());
+                success = true;
             } catch (IOException e) {
                 Main.log(Level.WARN, "Failed to save warp data!");
                 e.printStackTrace();
+                success = false;
             }
         }
+        return success;
     }
 }

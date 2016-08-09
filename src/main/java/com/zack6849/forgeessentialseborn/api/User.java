@@ -41,7 +41,7 @@ public class User {
     }
 
     private void setLocation(int z, int y, int z1, int pitch, int yaw) {
-        this.location = new Location(z,y,z,pitch,yaw);
+        this.location = new Location(z, y, z, pitch, yaw);
     }
 
     public void sendMessage(String message) {
@@ -50,8 +50,13 @@ public class User {
             sender.addChatMessage(new TextComponentString(message));
         }
     }
-    public void teleport(Location location){
-        this.getSender().getCommandSenderEntity().setPositionAndUpdate(location.getX(),location.getY(),location.getZ());
+
+    public void teleport(Location location) {
+        if (isPlayer()) {
+            if (getSender().getCommandSenderEntity() != null) {
+                getSender().getCommandSenderEntity().setPositionAndUpdate(location.getX(), location.getY(), location.getZ());
+            }
+        }
     }
 
     public ICommandSender getSender() {
@@ -101,8 +106,8 @@ public class User {
     public Location getLocation() {
         return this.location;
     }
-    public ArrayList<String> getWarps(){
 
+    public ArrayList<String> getWarps() {
         return Teleports.getWarps(this.getName());
     }
 }

@@ -1,23 +1,27 @@
 package com.zack6849.forgeessentialseborn.utils;
 
-        import com.google.common.io.Files;
-        import com.google.gson.*;
-        import com.zack6849.forgeessentialseborn.Main;
-        import java.io.*;
-        import java.net.URL;
-        import java.nio.charset.Charset;
-        import org.apache.commons.io.FileUtils;
-        import org.apache.logging.log4j.Level;
+import com.google.common.io.Files;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.zack6849.forgeessentialseborn.Main;
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.Level;
 
-        public class StorageHandler {
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
 
-    public static File moveConfig(String name){
+public class StorageHandler {
+
+    public static File moveConfig(String name) {
         try {
             URL inputUrl = Main.getInstance().getClass().getResource("/" + name);
             File dest = new File(Main.getInstance().getServer().getDataDirectory().getAbsoluteFile() + File.separator + "config" + File.separator + "ForgeEssentialsReborn", name);
             FileUtils.copyURLToFile(inputUrl, dest);
             return dest;
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             Main.log(Level.INFO, "jar File missing json config");
         }

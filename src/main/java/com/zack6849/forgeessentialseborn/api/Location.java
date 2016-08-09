@@ -1,6 +1,5 @@
 package com.zack6849.forgeessentialseborn.api;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.math.BlockPos;
 
@@ -13,7 +12,7 @@ public class Location {
     private float yaw;
     private World world;
 
-    public Location(int x, int y, int z, int pitch, int yaw){
+    public Location(int x, int y, int z, int pitch, int yaw) {
         this.setX(x);
         this.setY(y);
         this.setZ(z);
@@ -29,7 +28,7 @@ public class Location {
         this.setYaw(0.0F);
     }
 
-    public String toString(Location location){
+    public String toString(Location location) {
         return this.getX() + " " + this.getY() + " " + this.getZ() + " -- Pitch: " + this.getPitch() + "  yaw:" + this.getYaw();
     }
 
