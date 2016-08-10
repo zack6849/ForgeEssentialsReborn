@@ -64,7 +64,6 @@ public class Main {
         //Load blank config files if any are required
         //
         StorageHandler.moveConfig("warps.json");
-        StorageHandler.moveConfig("strings.json");
         StorageHandler.moveConfig("messages.json");
 
 

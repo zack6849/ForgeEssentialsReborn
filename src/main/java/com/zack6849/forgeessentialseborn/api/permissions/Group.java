@@ -92,9 +92,10 @@ public class Group {
         }
     }
 
-    public void removePermission(String permission) {
+    public void removePermission(Permission permission) {
+        String permString = permission.getPermission();
         for (Permission perm : permissions) {
-            if (perm.getPermission().equalsIgnoreCase(permission)) {
+            if (perm.getPermission().equalsIgnoreCase(permString)) {
                 this.permissions.remove(perm);
                 return;
             }
@@ -111,9 +112,7 @@ public class Group {
     }
 
     public void removeInherit(Group inherit) {
-        for (Permission permission : inherit.getPermissions()) {
-            this.removePermission(permission.getPermission());
-        }
+        inherit.getPermissions().forEach(this::removePermission);
         if (this.inheritance.contains(inherit.getName())) {
             this.inheritance.remove(inherit.getName());
         }

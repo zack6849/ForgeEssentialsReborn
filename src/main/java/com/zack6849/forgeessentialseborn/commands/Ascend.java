@@ -20,7 +20,7 @@ public class Ascend extends Command {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
+    public CommandResult execute(MinecraftServer server, ICommandSender sender, String[] args) {
 
         User user = new User(sender);
 
@@ -71,7 +71,7 @@ public class Ascend extends Command {
             }
             x++;
         }
-        return CommandResult.FALIURE;
+        return CommandResult.FAILURE;
     }
 
 }

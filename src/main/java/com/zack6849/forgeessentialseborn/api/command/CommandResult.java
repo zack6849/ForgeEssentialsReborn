@@ -10,5 +10,5 @@ public enum CommandResult {
     HANDLED_ERROR,
     INVALID_SYNTAX,
     SUCCESS,
-    FALIURE
+    FAILURE
 }

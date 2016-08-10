@@ -69,8 +69,11 @@ public abstract class Command implements ICommand {
         if (result == CommandResult.NO_PERMISSION) {
             user.sendMessage("Sorry, you don't have permission to run that command!");
         }
-        if (result == CommandResult.FALIURE) {
+        if (result == CommandResult.FAILURE) {
             user.sendMessage("An unhandled error occurred while processing your command, check the server log for more details");
+        }
+        if (result == CommandResult.INVALID_SYNTAX) {
+            user.sendMessage("Incorrect command usage, refer to documentation");
         }
     }
 
